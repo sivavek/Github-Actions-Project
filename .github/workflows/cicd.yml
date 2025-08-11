@@ -110,7 +110,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
+      run: sudo docker run --rm --privileged tonistiigi/binfmt --install all
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
     - name: Build and Push Docker image
@@ -118,7 +118,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: adijaiswal/bankapp:latest
+        tags: sivavek/bankapp:latest
         file: ./Dockerfile
 
   deploy_to_kubernetes:
