@@ -111,6 +111,9 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Set up QEMU
       run: sudo docker run --rm --privileged tonistiigi/binfmt --install all
+    - name: Remove existing builder
+      run: |
+        sudo docker buildx rm builder || true
     - name: Set up Docker Buildx
       run: sudo docker buildx create --name builder --driver docker-container --use
     - name: Build and Push Docker image
