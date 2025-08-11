@@ -114,12 +114,13 @@ jobs:
     - name: Set up Docker Buildx
       run: sudo docker buildx create --name builder --driver docker-container --use
     - name: Build and Push Docker image
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        push: true
-        tags: sivavek/bankapp:latest
-        file: ./Dockerfile
+      run: |
+        sudo bash -c '
+        docker buildx build \
+        --platform linux/amd64,linux/arm64 \
+        -t sivavek/bankingapp:latest \
+        --push .
+        '
 
   deploy_to_kubernetes:
     runs-on: self-hosted
