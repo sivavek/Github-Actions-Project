@@ -118,7 +118,7 @@ jobs:
       run: sudo docker buildx create --name builder --driver docker-container --use
     - name: Build and Push Docker image
       run: |
-        sudo bash -c '
+        bash -c '
         docker buildx build \
         --platform linux/amd64 \
         -t sivavek/bankingapp:latest \
